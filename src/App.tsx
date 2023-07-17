@@ -235,11 +235,11 @@ var croiMetaHard = `{
 function App() {
   const [dirs, setDirs] = useState<CroissantMetadata[]>([]);
   useEffect(() => {
-    /*GetMetadataFiles().then((newDirs) => {
+    GetMetadataFiles().then((newDirs) => {
       setDirs(newDirs);
     });
-    */
   })
+  console.log(dirs)
 
   return (
       <Bagel croiMeta={JSON.parse(croiMetaHard)}/>
