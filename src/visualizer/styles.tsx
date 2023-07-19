@@ -23,7 +23,6 @@ export const Title = styled.h1`
 `
 export const Selector = styled.div`
     text-align: left;
-    border: 2px solid black;
     width: auto;
 `
 
