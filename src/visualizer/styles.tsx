@@ -5,6 +5,7 @@ export const TitleWrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+    background-color: white;
 `
 
 export const WindowWrapper = styled.div`
@@ -22,7 +23,6 @@ export const Title = styled.h1`
 `
 export const Selector = styled.div`
     text-align: left;
-    display: inline;
     border: 2px solid black;
     width: auto;
 `

@@ -241,7 +241,7 @@ function App() {
       console.log(newDirs);
       setDirs(newDirs);
     });
-  })
+  },[])
   console.log("app rerender");
 
   return (

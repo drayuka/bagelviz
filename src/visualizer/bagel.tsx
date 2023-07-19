@@ -26,11 +26,9 @@ export function Bagel(props: bagelProps) {
         }
     });
     useEffect(() => {
-        setCroiMeta("datasets/titanic/metadata.json")
+        setCroiMeta("https://github.com/mlcommons/croissant/blob/main/datasets/titanic/metadata.json")
     }, [props.metas])
-    console.log("bagel inf")
-    console.log(props.metas);
-    console.log(croiMeta);
+    console.log(props.metas[croiMeta])
 
     return (
     <WindowWrapper>
@@ -51,7 +49,7 @@ export function Bagel(props: bagelProps) {
                 </Option>
             </Options>
             <Selector>
-                <Dropdown menu={{items}}><div>{croiMeta}</div></Dropdown>
+                <Dropdown menu={{items}}><a>{croiMeta}</a></Dropdown>
             </Selector>
         </TitleWrapper>
         <BodyWrapper>

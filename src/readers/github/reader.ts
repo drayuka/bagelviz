@@ -39,7 +39,12 @@ export var GetMetadataFiles = async () => {
         goodMetaResponses.forEach((item) => {
             const fileInfo = item.value.data
             if (!Array.isArray(fileInfo) && fileInfo.type === 'file') {
-                lookup[fileInfo.path] = JSON.parse(atob(fileInfo.content))
+                if (fileInfo.html_url) {
+                    lookup[fileInfo.html_url] = JSON.parse(atob(fileInfo.content))
+                } else {
+                    lookup[fileInfo.path] = JSON.parse(atob(fileInfo.content))
+                }
+                
             }
     
         });
