@@ -26,6 +26,7 @@ export const RecordSetFields = styled.div`
     display: grid;
 `
 export const RecordSetFieldItem = styled.div`
+    background-color: white;
     width: 100%
 `
 

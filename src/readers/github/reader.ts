@@ -1,4 +1,5 @@
 import { Octokit } from "octokit";
+import { token } from "./token";
 
 var owner = "mlcommons"
 var repo = "croissant"
@@ -6,7 +7,8 @@ var path = "datasets"
 
 
 
-const octokit = new Octokit();
+
+const octokit = new Octokit({auth: token});
 
 const isfulfilled = <T>(input: PromiseSettledResult<T>): input is PromiseFulfilledResult<T> =>
     input.status === 'fulfilled'
@@ -26,24 +28,23 @@ export var GetMetadataFiles = async () => {
     } else {
         return Promise.reject("did not recieve directory data from request")
     }
-    console.log(metadataPaths);
 
     const metadataGets = metadataPaths.map((metadataPath) => octokit.rest.repos.getContent({path: metadataPath, owner: owner, repo: repo}))
     const metadataResponses = await Promise.allSettled(metadataGets);
-    console.log("got here");
 
     const goodMetaResponses = metadataResponses.filter(isfulfilled);
 
     if (goodMetaResponses.length != 0) {
-        return goodMetaResponses.map((item) => {
+        const lookup : {[key: string]: CroissantMetadata} = {};
+        goodMetaResponses.forEach((item) => {
             const fileInfo = item.value.data
             if (!Array.isArray(fileInfo) && fileInfo.type === 'file') {
-                return JSON.parse(fileInfo.content)
+                lookup[fileInfo.path] = JSON.parse(atob(fileInfo.content))
             }
     
-        })
+        });
+        return lookup
     } else {
-        return [];
+        return {};
     }
-
 }

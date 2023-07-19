@@ -1,16 +1,11 @@
+import { MLDesc, MLTitle, MLWrapper } from "./styles"
 
-interface mlsemanticsProps {
-    croiMeta: CroissantMetadata
-}
 
-export function MLSemantics(props: mlsemanticsProps) {
-
-    if (props) {
-        return (
-            <div/>
-        )
-    }
+export function MLSemantics() {
     return (
-        <div/>
+        <MLWrapper>
+            <MLTitle>ML Semantics</MLTitle>
+            <MLDesc>None specified</MLDesc>
+        </MLWrapper>
     )
 }

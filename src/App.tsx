@@ -3,7 +3,7 @@ import './App.css'
 import { GetMetadataFiles } from './readers/github/reader';
 import { Bagel } from './visualizer/bagel';
 
-var croiMetaHard = `{
+var croiMetaHard : CroissantMetadata = JSON.parse(`{
   "@context": {
     "@vocab": "https://schema.org/",
     "sc": "https://schema.org/",
@@ -230,19 +230,22 @@ var croiMetaHard = `{
     }
   ]
 }
-`
+`)
 
 function App() {
-  const [dirs, setDirs] = useState<CroissantMetadata[]>([]);
+  const [dirs, setDirs] = useState<{[key: string]: CroissantMetadata}>({test: croiMetaHard});
   useEffect(() => {
+    console.log("getting metadata files");
     GetMetadataFiles().then((newDirs) => {
+      console.log("got metadata files");
+      console.log(newDirs);
       setDirs(newDirs);
     });
   })
-  console.log(dirs)
+  console.log("app rerender");
 
   return (
-      <Bagel croiMeta={JSON.parse(croiMetaHard)}/>
+      <Bagel metas={dirs}/>
   )
 }
 

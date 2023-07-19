@@ -6,6 +6,9 @@ interface metadataProps {
 
 export function Metadata(props: metadataProps) {
     const croi = props.croiMeta
+    if (!croi) {
+        return <div></div>
+    }
 
     const items = ["name", "url", "description", "license", "citation"].map((key) => {
 

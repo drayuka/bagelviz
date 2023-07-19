@@ -13,9 +13,6 @@ export const DistTitle = styled.h1`
 export const DistItems = styled.div`
     width: 100%;
     display: grid;
-    grid: autoflow dense;
-    grid-auto-columns: 20%;
-    grid-auto-rows:10%;
 `
 
 export const DistItem = styled.div`

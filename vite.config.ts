@@ -14,5 +14,10 @@ export default defineConfig({
     https: true,
     port: 443,
     host: true,
+  },
+  preview: {
+    https: true,
+    port: 443,
+    host: true,
   }
 })

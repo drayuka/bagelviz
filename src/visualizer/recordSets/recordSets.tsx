@@ -6,7 +6,9 @@ interface recordSetsProps {
 
 export function RecordSets(props: recordSetsProps) {
     const fieldColumns = ["name", "description", "dataType", "source"]
-
+    if (!props.croiMeta) {
+        return <div></div>
+    }
     const recordSets = props.croiMeta.recordSet.map((recordSet) => {
         const recordSetFields : JSX.Element[] = [];
         recordSetFields.push(...fieldColumns.map((key, cidx) => 
@@ -28,7 +30,7 @@ export function RecordSets(props: recordSetsProps) {
                 }
             }))
         })
-        return <RecordSet>
+        return <RecordSet key={recordSet.name}>
             <RecordSetTitle>{recordSet.name}</RecordSetTitle>
             <RecordSetItem>{recordSet.description}</RecordSetItem>
             <RecordSetFields>
