@@ -5,6 +5,7 @@ import { RecordSets } from "./recordSets/recordSets";
 import { Title, Option, Options, TitleWrapper, BodyWrapper, WindowWrapper, Selector } from "./styles";
 import { Dropdown } from "antd";
 import { useEffect, useState } from 'react'
+import { Catcher } from "./catcher/catcher";
 
 interface bagelProps {
     metas: {
@@ -28,7 +29,6 @@ export function Bagel(props: bagelProps) {
     useEffect(() => {
         setCroiMeta("https://github.com/mlcommons/croissant/blob/main/datasets/titanic/metadata.json")
     }, [props.metas])
-    console.log(props.metas[croiMeta])
 
     return (
     <WindowWrapper>
@@ -52,12 +52,15 @@ export function Bagel(props: bagelProps) {
                 <Dropdown menu={{items}}><a>{croiMeta}</a></Dropdown>
             </Selector>
         </TitleWrapper>
-        <BodyWrapper>
-            <Metadata croiMeta={props.metas[croiMeta]}/>
-            <Distribution croiMeta={props.metas[croiMeta]}/>
-            <RecordSets croiMeta={props.metas[croiMeta]}/>
-            <MLSemantics/>
-        </BodyWrapper>
+        <Catcher key={croiMeta}>
+            <BodyWrapper>
+                <Metadata croiMeta={props.metas[croiMeta]}/>
+                <Distribution croiMeta={props.metas[croiMeta]}/>
+                <RecordSets croiMeta={props.metas[croiMeta]}/>
+                <MLSemantics/>
+            </BodyWrapper>
+        </Catcher>
+
     </WindowWrapper>
     )
 }

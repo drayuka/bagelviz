@@ -16,7 +16,13 @@ export function RecordSets(props: recordSetsProps) {
         ))
         recordSet.field.forEach((field, ridx) => {
             recordSetFields.push(...fieldColumns.map((key, cidx) => {
-                if (key == "dataType") {
+                if (key == "source") {
+                    const source = field[key]
+                    if( typeof source == 'object' ) {
+                        return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1}} key={(ridx+2)+key}>Can't render!</RecordSetFieldItem>
+                    }
+                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1}} key={(ridx+2)+key}>{field[key]}</RecordSetFieldItem>
+                } else if (key == "dataType") {
                     let dt: string;
                     const dataType = field[key];
                     if(Array.isArray(dataType)) {
