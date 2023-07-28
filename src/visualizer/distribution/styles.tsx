@@ -9,7 +9,6 @@ export const DistTitle = styled.h1`
     background-color: #FFD9C0;
 `
 
-
 export const DistItems = styled.div`
     width: 100%;
     display: grid;
@@ -18,6 +17,16 @@ export const DistItems = styled.div`
 export const DistItem = styled.div`
     border: 1px solid black;
     text-overflow: ellipsis;
+`
+export const DistCopyLink = styled.a`
+    text-decoration: none;
+    &:active {
+        text-decoration: none;
+    }
+    &:hover, &:focus {
+        color: red;
+        text-decoration: underline;
+    }
 `
 
 export const DistRow = styled.div`

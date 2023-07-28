@@ -1,7 +1,8 @@
-import { RecordBlock, RecordSetTitle, RecordTitle, RecordSet, RecordSetItem, RecordSetFields, RecordSetFieldItem, RecordSetFieldColumnItem } from "./styles"
-
+import { RecordBlock, RecordHint, RecordSetTitle, RecordTitle, RecordSet, RecordSetItem, RecordSetFields, RecordSetFieldItem, RecordSetFieldColumnItem } from "./styles"
+import { TagUrls } from "../../utils"
 interface recordSetsProps {
     croiMeta: CroissantMetadata
+    id: string
 }
 
 export function RecordSets(props: recordSetsProps) {
@@ -16,12 +17,20 @@ export function RecordSets(props: recordSetsProps) {
         ))
         recordSet.field.forEach((field, ridx) => {
             recordSetFields.push(...fieldColumns.map((key, cidx) => {
+                const val = field[key]
+                const colorize = recordSet.key == field.name 
                 if (key == "source") {
                     const source = field[key]
                     if( typeof source == 'object' ) {
-                        return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1}} key={(ridx+2)+key}>Can't render!</RecordSetFieldItem>
+                        let item : string
+                        if(source?.distribution) {
+                            item = "distribution: " + source?.distribution
+                        } else {
+                            item = source?.dataExtraction?.csvColumn + " @ " + source?.distribution
+                        }   
+                        return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1, fontWeight: colorize ? 'bold' : 'inherit'}} key={(ridx+2)+key}>{item}</RecordSetFieldItem>
                     }
-                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1}} key={(ridx+2)+key}>{field[key]}</RecordSetFieldItem>
+                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1, fontWeight: colorize ? 'bold' : 'inherit'}} key={(ridx+2)+key}>{source}</RecordSetFieldItem>
                 } else if (key == "dataType") {
                     let dt: string;
                     const dataType = field[key];
@@ -30,23 +39,24 @@ export function RecordSets(props: recordSetsProps) {
                     } else {
                         dt = dataType;
                     }
-                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1}} key={(ridx+2)+key}>{dt}</RecordSetFieldItem>
-                } else {
-                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1}} key={(ridx+2)+key}>{field[key]}</RecordSetFieldItem>
+                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1, fontWeight: colorize ? 'bold' : 'inherit'}} key={(ridx+2)+key}>{dt}</RecordSetFieldItem>
+                } else if (key == "description" && val != undefined) {
+                    return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1, fontWeight: colorize ? 'bold' : 'inherit'}} key={(ridx+2)+key}>{TagUrls(field[key])}</RecordSetFieldItem>
                 }
+                return <RecordSetFieldItem style={{gridRow: ridx+2, gridColumn:cidx+1, fontWeight: colorize ? 'bold' : 'inherit'}} key={(ridx+2)+key}>{field[key]}</RecordSetFieldItem>
             }))
         })
         return <RecordSet key={recordSet.name}>
             <RecordSetTitle>{recordSet.name}</RecordSetTitle>
-            <RecordSetItem>{recordSet.description}</RecordSetItem>
+            <RecordSetItem>{recordSet.description? TagUrls(recordSet.description) : ""}</RecordSetItem>
             <RecordSetFields>
                 {recordSetFields}
             </RecordSetFields>
         </RecordSet>
     })
     return (
-        <RecordBlock>
-            <RecordTitle>RecordSets</RecordTitle>
+        <RecordBlock id={props.id}>
+            <RecordTitle>Record Sets<br/><RecordHint>Keys are bolded, if available</RecordHint></RecordTitle>
             {recordSets}
         </RecordBlock>
     )

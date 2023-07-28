@@ -13,17 +13,22 @@ export const WindowWrapper = styled.div`
 export const BodyWrapper = styled.div`
     background-color: white;
     margin: 10px;
-    margin-top: 170px;
+    margin-top: 200px;
+    overflow: auto;
+    height: 100%;
 `
 export const Title = styled.h1`
     background-color: #FFD9C0;
-    color: #8CC0DE;
     margin:0;
     padding: 10px
 `
 export const Selector = styled.div`
+    display: inline;
     text-align: left;
     width: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
 `
 
 export const Options = styled.div`

@@ -7,10 +7,21 @@ import { Dropdown } from "antd";
 import { useEffect, useState } from 'react'
 import { Catcher } from "./catcher/catcher";
 
+import { AiFillCaretDown } from "react-icons/ai";
+
 interface bagelProps {
     metas: {
         [key: string]: CroissantMetadata;
     }
+}
+
+export function scrollToThing(target: string) {
+    const element = document.getElementById(target)
+    element?.scrollIntoView(true)
+    if(target == 'MLSemantics') {
+        return
+    }
+    window.scrollBy(0,-200)
 }
 
 export function Bagel(props: bagelProps) {
@@ -29,35 +40,38 @@ export function Bagel(props: bagelProps) {
     useEffect(() => {
         setCroiMeta("https://github.com/mlcommons/croissant/blob/main/datasets/titanic/metadata.json")
     }, [props.metas])
+    const somekey='something'
 
     return (
     <WindowWrapper>
         <TitleWrapper>
             <Title>🥐 Croissant Visualizer v0.1</Title>
             <Options>
-                <Option>
+                <Option onClick={() => scrollToThing('Metadata')}>
                     Metdata
                 </Option>
-                <Option>
+                <Option onClick={() => scrollToThing('Distribution')}>
                     Distribution
                 </Option>
-                <Option>
+                <Option onClick={() => scrollToThing('RecordSets')}>
                     Record Sets
                 </Option>
-                <Option>
+                <Option onClick={() => scrollToThing('MLSemantics')}>
                     ML Semantics
                 </Option>
             </Options>
             <Selector>
-                <Dropdown menu={{items}}><a>{croiMeta}</a></Dropdown>
+                <Dropdown menu={{items}}><a>{croiMeta}<AiFillCaretDown/></a></Dropdown>
             </Selector>
+            <Title style={{marginTop: '10px'}}/>
         </TitleWrapper>
         <Catcher key={croiMeta}>
-            <BodyWrapper>
-                <Metadata croiMeta={props.metas[croiMeta]}/>
-                <Distribution croiMeta={props.metas[croiMeta]}/>
-                <RecordSets croiMeta={props.metas[croiMeta]}/>
-                <MLSemantics/>
+            <BodyWrapper id="mainBody">
+                <div id="something"></div>
+                <Metadata id="Metadata" croiMeta={props.metas[croiMeta]}/>
+                <Distribution id="Distribution" croiMeta={props.metas[croiMeta]}/>
+                <RecordSets id="RecordSets" croiMeta={props.metas[croiMeta]}/>
+                <MLSemantics id="MLSemantics" />
             </BodyWrapper>
         </Catcher>
 

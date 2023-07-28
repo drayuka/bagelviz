@@ -21,13 +21,19 @@ export const RecordSetTitle = styled.h2`
 
 export const RecordSetItem = styled.div`
 `
+export const RecordHint = styled.div`
+    color: grey;
+    font-size:8pt;
+    font-weight: 400;
+`
 export const RecordSetFields = styled.div`
     width: 100%;
     display: grid;
 `
 export const RecordSetFieldItem = styled.div`
     background-color: white;
-    width: 100%
+    width: 100%;
+    border-top: 1px solid black;
 `
 
 export const RecordSetFieldColumnItem = styled.h3`

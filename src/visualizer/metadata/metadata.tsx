@@ -1,7 +1,9 @@
 import { MetaBlock, MetaItemName, MetaTitle, MetaItem, MetaItemDesc, MetaItems } from "./styles"
+import { TagUrls } from "../../utils"
 
 interface metadataProps {
     croiMeta: CroissantMetadata
+    id: string
 }
 
 export function Metadata(props: metadataProps) {
@@ -19,14 +21,14 @@ export function Metadata(props: metadataProps) {
                     {key}
                 </MetaItemName>
                 <MetaItemDesc>
-                    {val}
+                    {TagUrls(val)}
                 </MetaItemDesc>
             </MetaItem>
         )
     })
 
     return (
-        <MetaBlock>
+        <MetaBlock id={props.id}>
             <MetaTitle>
                 Metadata
             </MetaTitle>

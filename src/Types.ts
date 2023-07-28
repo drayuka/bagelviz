@@ -19,11 +19,16 @@ interface CroissantMetadata {
         description: string,
         key: string,
         field: {
-            [key: string]: string | string[]
+            [key: string]: string | string[] | any
             name: string,
             description: string,
             dataType: string[] | string,
-            source: string,
+            source: string | {
+                dataExtraction: {
+                    "csvColumn": string
+                }
+                distribution: string
+            },
         }[]
     }[]
 }
