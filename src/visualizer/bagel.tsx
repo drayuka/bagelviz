@@ -40,7 +40,6 @@ export function Bagel(props: bagelProps) {
     useEffect(() => {
         setCroiMeta("https://github.com/mlcommons/croissant/blob/main/datasets/titanic/metadata.json")
     }, [props.metas])
-    const somekey='something'
 
     return (
     <WindowWrapper>
